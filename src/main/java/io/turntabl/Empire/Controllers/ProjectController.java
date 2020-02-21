@@ -5,12 +5,8 @@ import io.swagger.annotations.ApiOperation;
 import io.turntabl.Empire.models.ProjectTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
-
 import java.util.List;
 
 
@@ -23,7 +19,7 @@ public class ProjectController {
     @CrossOrigin
     @ApiOperation("Add a Project")
     @PostMapping("/api/v1/addNewProject")
-    public void addNewProject(ProjectTO project) {
+    public void addNewProject(@RequestBody ProjectTO project) {
         template.update(
                 "insert into project(project_name) values(?)",
                 project.getProject_name()
@@ -35,8 +31,19 @@ public class ProjectController {
     @GetMapping("/api/v1/projects")
     public List<ProjectTO> viewAllProjects() {
         return this.template.query(
-                "select * from projects",
+                "select * from project",
                 new BeanPropertyRowMapper<ProjectTO>(ProjectTO.class)
+        );
+    }
+
+    @CrossOrigin
+    @ApiOperation("Get a Project By Id")
+    @GetMapping("/api/v1/project/{id}")
+    public ProjectTO viewProjectById(@PathVariable ("id") Integer id) {
+        return (ProjectTO) template.queryForObject(
+                "select * from project where project_id = ?",
+                new Object[]{id},
+                new BeanPropertyRowMapper<>(ProjectTO.class)
         );
     }
 

@@ -21,8 +21,7 @@ public class EndpointController {
     @PostMapping("/api/v1/addNewEndpoint")
     public void addNewEndpoint(@RequestBody EndpointTO endpoint) {
         template.update(
-                "insert into endpoints(project_id, endpoint_url, request_method) values(?,?,?)",
-                endpoint.getProject_id(),
+                "insert into endpoints(endpoint_url, request_method) values(?,?)",
                 endpoint.getEndpoint_url(),
                 endpoint.getRequest_method()
         );
@@ -33,7 +32,7 @@ public class EndpointController {
     @GetMapping("/api/vi/endpoints")
     public List<EndpointTO> viewAllEndpoints() {
         return this.template.query(
-                "select * from endpoints",
+                "select endpoint_url, request_method from endpoints",
                 new BeanPropertyRowMapper<EndpointTO>(EndpointTO.class)
         );
     }
@@ -43,7 +42,7 @@ public class EndpointController {
     @GetMapping("/api/v1/endpoints/{id}")
     public EndpointTO viewEndpointById(@PathVariable("id") Integer id) {
         return (EndpointTO) template.queryForObject(
-                "select * from endpoints where endpoint_id = ?",
+                "select endpoint_url, request_method from endpoints where endpoint_id = ?",
                 new Object[]{id},
                 new BeanPropertyRowMapper<>(EndpointTO.class)
         );

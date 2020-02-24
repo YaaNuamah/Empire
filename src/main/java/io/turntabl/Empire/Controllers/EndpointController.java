@@ -29,7 +29,7 @@ public class EndpointController {
     }
 
     @CrossOrigin
-    @ApiOperation("Get all Endpoints")
+    @ApiOperation("Get    all Endpoints")
     @GetMapping("/api/vi/endpoints")
     public List<EndpointTO> viewAllEndpoints() {
         return this.template.query(

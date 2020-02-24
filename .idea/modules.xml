@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/Empire.iml" filepath="$PROJECT_DIR$/.idea/Empire.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Empire.main.iml" filepath="$PROJECT_DIR$/.idea/modules/Empire.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Empire.test.iml" filepath="$PROJECT_DIR$/.idea/modules/Empire.test.iml" />
+    </modules>
+  </component>
+</project>

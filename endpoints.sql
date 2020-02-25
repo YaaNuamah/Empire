@@ -13,16 +13,10 @@ create table endpoints(
    request_method varchar(255) not null
 );
 
-------------------------------------------------------------------
-        --Dumping table for project
-------------------------------------------------------------------
 insert into project(project_name) values('Time Entry System');
 insert into project(project_name) values('Pollster');
 insert into project(project_name) values('Chess');
 
--------------------------------------------------------------------
-       --Dumping table for endpoints
--------------------------------------------------------------------
 
 INSERT into endpoints(project_id, endpoint_url, request_method) values(1, 'https://employeeservice002.herokuapp.com/v1/api/employee/{{id}}', 'GET');
 INSERT into endpoints(project_id, endpoint_url, request_method) values(2, 'https://employeeservice002.herokuapp.com/v1/api/employees', 'GET');

@@ -31,7 +31,7 @@ public class ProjectController {
     @GetMapping("/api/v1/projects")
     public List<ProjectTO> viewAllProjects() {
         return this.template.query(
-                "select * from project",
+                "select project_id, project_name from project",
                 new BeanPropertyRowMapper<ProjectTO>(ProjectTO.class)
         );
     }
@@ -41,7 +41,7 @@ public class ProjectController {
     @GetMapping("/api/v1/project/{id}")
     public ProjectTO viewProjectById(@PathVariable ("id") Integer id) {
         return (ProjectTO) template.queryForObject(
-                "select * from project where project_id = ?",
+                "select project_id, project_name from project where project_id = ?",
                 new Object[]{id},
                 new BeanPropertyRowMapper<>(ProjectTO.class)
         );

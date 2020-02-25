@@ -30,10 +30,10 @@ public class EndpointController {
 
     @CrossOrigin
     @ApiOperation("Get all Endpoints")
-    @GetMapping("/api/vi/endpoints")
+    @GetMapping("/api/v1/endpoints")
     public List<EndpointTO> viewAllEndpoints() {
         return this.template.query(
-                "select * from endpoints",
+                "select endpoint_id, project_id, endpoint_url, request_method from endpoints",
                 new BeanPropertyRowMapper<EndpointTO>(EndpointTO.class)
         );
     }
@@ -43,7 +43,7 @@ public class EndpointController {
     @GetMapping("/api/v1/endpoints/{id}")
     public EndpointTO viewEndpointById(@PathVariable("id") Integer id) {
         return (EndpointTO) template.queryForObject(
-                "select * from endpoints where endpoint_id = ?",
+                "select project_id, endpoint_url, request_method from endpoints where endpoint_id = ?",
                 new Object[]{id},
                 new BeanPropertyRowMapper<>(EndpointTO.class)
         );

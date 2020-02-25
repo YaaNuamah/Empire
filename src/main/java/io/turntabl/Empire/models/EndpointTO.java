@@ -1,6 +1,7 @@
 package io.turntabl.Empire.models;
 
 public class EndpointTO {
+
     private Integer endpoint_id;
     private Integer project_id;
     private String endpoint_url;

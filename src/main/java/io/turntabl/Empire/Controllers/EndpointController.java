@@ -30,7 +30,7 @@ public class EndpointController {
 
     @CrossOrigin
     @ApiOperation("Get all Endpoints")
-    @GetMapping("/api/vi/endpoints")
+    @GetMapping("/api/v1/endpoints")
     public List<EndpointTO> viewAllEndpoints() {
         return this.template.query(
                 "select endpoint_id, project_id, endpoint_url, request_method from endpoints",

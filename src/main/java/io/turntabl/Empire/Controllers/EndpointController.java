@@ -8,13 +8,46 @@ import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.web.bind.annotation.*;
 
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Api
 @RestController
 public class EndpointController {
     @Autowired
     JdbcTemplate template;
+
+
+    public  String getstatus(String url){
+
+        String result = "";
+        int code = 200;
+        try{
+            URL siteURL = new URL(url);
+            HttpURLConnection connection = (HttpURLConnection) siteURL.openConnection();
+            connection.setRequestMethod("GET");
+            connection.setConnectTimeout(3000);
+            connection.connect();
+
+            code = connection.getResponseCode();
+            if (code == 200) {
+
+                System.out.println("green \t" + url);
+
+            }
+            else {
+                System.out.println("red \t" + url);
+
+            }
+        }
+        catch (Exception e){
+            System.out.println(e.getMessage());
+        }
+        return  result;
+    }
 
     @CrossOrigin
     @ApiOperation("Add a new Endpoint")
@@ -36,6 +69,21 @@ public class EndpointController {
                 "select endpoint_id, project_id, endpoint_url, request_method from endpoints",
                 new BeanPropertyRowMapper<EndpointTO>(EndpointTO.class)
         );
+    }
+
+    @CrossOrigin
+    @ApiOperation("Get all Endpoints")
+    @GetMapping("/api/v1/testcode")
+    public List<String> viewssssssss() {
+        List<EndpointTO> response  =  this.template.query(
+                "select endpoint_url from endpoints",
+                new BeanPropertyRowMapper<EndpointTO>(EndpointTO.class)
+        );
+
+        response.stream().map(endpoint -> endpoint.getEndpoint_url()).collect(Collectors.toList()).forEach(entry -> {
+            getstatus(entry);
+        });
+        return  response.stream().map(endpoint -> endpoint.getEndpoint_url()).collect(Collectors.toList());
     }
 
     @CrossOrigin

@@ -73,8 +73,8 @@ public class EndpointController {
 
     @CrossOrigin
     @ApiOperation("Get all Endpoints")
-    @GetMapping("/api/v1/testcode")
-    public List<String> viewssssssss() {
+    @GetMapping("/api/v1/statuscode")
+    public List<String> viewstatuscode() {
         List<EndpointTO> response  =  this.template.query(
                 "select endpoint_url from endpoints",
                 new BeanPropertyRowMapper<EndpointTO>(EndpointTO.class)

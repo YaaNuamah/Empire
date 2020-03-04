@@ -21,7 +21,7 @@ public class ProjectController {
     @PostMapping("/api/v1/addNewProject")
     public void addNewProject(@RequestBody ProjectTO project) {
         template.update(
-                "insert into project(project_name) values(?)",
+                "insert into turntabl_project(project_name) values(?)",
                 project.getProject_name()
         );
     }
@@ -31,7 +31,7 @@ public class ProjectController {
     @GetMapping("/api/v1/projects")
     public List<ProjectTO> viewAllProjects() {
         return this.template.query(
-                "select project_id, project_name from project",
+                "select project_id, project_name from turntabl_project",
                 new BeanPropertyRowMapper<ProjectTO>(ProjectTO.class)
         );
     }
@@ -41,7 +41,7 @@ public class ProjectController {
     @GetMapping("/api/v1/project/{id}")
     public ProjectTO viewProjectById(@PathVariable ("id") Integer id) {
         return (ProjectTO) template.queryForObject(
-                "select project_id, project_name from project where project_id = ?",
+                "select project_id, project_name from turntabl_project where project_id = ?",
                 new Object[]{id},
                 new BeanPropertyRowMapper<>(ProjectTO.class)
         );

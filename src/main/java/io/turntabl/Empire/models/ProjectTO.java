@@ -18,7 +18,9 @@ public class ProjectTO {
 
     public String getProject_name() { return project_name; }
 
-    public void setProject_name(String project_name) { this.project_name = project_name; }
+    public void setProject_name(String project_name) {
+        this.project_name = project_name;
+    }
 
     @Override
     public String toString() {

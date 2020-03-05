@@ -1,7 +1,5 @@
 package io.turntabl.Empire.models;
 
-
-
 public class StatusTO {
 
     private String endpoint_url;
@@ -9,7 +7,7 @@ public class StatusTO {
     private Integer status;
     private Integer endpoint_id;
     private String request_method;
-    private  String project_name;
+    private String project_name;
 
     public StatusTO() { }
 
@@ -22,51 +20,27 @@ public class StatusTO {
         this.project_name = project_name;
     }
 
-    public String getEndpoint_url() {
-        return endpoint_url;
-    }
+    public String getEndpoint_url() { return endpoint_url; }
 
-    public void setEndpoint_url(String endpoint_url) {
-        this.endpoint_url = endpoint_url;
-    }
+    public void setEndpoint_url(String endpoint_url) { this.endpoint_url = endpoint_url; }
 
-    public Integer getProject_id() {
-        return project_id;
-    }
+    public Integer getProject_id() { return project_id; }
 
-    public void setProject_id(Integer project_id) {
-        this.project_id = project_id;
-    }
+    public void setProject_id(Integer project_id) { this.project_id = project_id; }
 
-    public Integer getStatus() {
-        return status;
-    }
+    public Integer getStatus() { return status; }
 
-    public void setStatus(Integer status) {
-        this.status = status;
-    }
+    public void setStatus(Integer status) { this.status = status; }
 
-    public Integer getEndpoint_id() {
-        return endpoint_id;
-    }
+    public Integer getEndpoint_id() { return endpoint_id; }
 
-    public void setEndpoint_id(Integer endpoint_id) {
-        this.endpoint_id = endpoint_id;
-    }
+    public void setEndpoint_id(Integer endpoint_id) { this.endpoint_id = endpoint_id; }
 
-    public String getRequest_method() {
-        return request_method;
-    }
+    public String getRequest_method() { return request_method; }
 
-    public void setRequest_method(String request_method) {
-        this.request_method = request_method;
-    }
+    public void setRequest_method(String request_method) { this.request_method = request_method; }
 
-    public String getProject_name() {
-        return project_name;
-    }
+    public String getProject_name() { return project_name; }
 
-    public void setProject_name(String project_name) {
-        this.project_name = project_name;
-    }
+    public void setProject_name(String project_name) { this.project_name = project_name; }
 }

@@ -35,6 +35,16 @@ public class StatusController {
                  new BeanPropertyRowMapper<StatusTO>(StatusTO.class));
     }
 
+    @CrossOrigin()
+    @ApiOperation("Get Status By Project Id")
+    @GetMapping("/api/v1/status/{project_id}")
+    public StatusTO getStatusByProjectId(@PathVariable("project_id") Integer project_id) {
+        return (StatusTO) this.template.query("select endpoint_url, turntabl_project.project_name, endpoints.request_method, status, status.project_id, status.endpoint_id, status_date from status inner join endpoints on status.endpoint_id = endpoints.endpoint_id inner join turntabl_project on status.project_id = turntabl_project.project_id group by status.project_id",
+        new Object[]{project_id},
+        new BeanPropertyRowMapper<>(StatusTO.class));
+
+    }
+
     @CrossOrigin(origins = "*")
     @ApiOperation("Get Status By Current Date")
     @GetMapping("api/v2/status/{current_date}")

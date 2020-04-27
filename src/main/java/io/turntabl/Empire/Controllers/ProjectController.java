@@ -47,4 +47,24 @@ public class ProjectController {
         );
     }
 
+
+//    @CrossOrigin
+//    @PatchMapping("/api/v1/project/{id}")
+//    public void updateProject(@RequestBody ProjectTO project, @PathVariable("id") String id) {
+//        return ProjectTO
+//    }
+//    @CrossOrigin
+//    @PatchMapping("/api/v1/stories/{id}")
+//    public void updateStory(@RequestBody StoryTO uStory, @PathVariable("id") String id) {
+//        StoryTO story = db.find(StoryTO.class, id);
+//
+//        story.setAuthor_id(uStory.getAuthor_id());
+//        story.setStory_title(uStory.getStory_title());
+//        story.setStory_description(uStory.getStory_description());
+//        story.setCategory_id(uStory.getCategory_id());
+//        story.setStory_photo(uStory.getStory_photo());
+//
+//        Response response = db.update(story);
+//    }
+
 }

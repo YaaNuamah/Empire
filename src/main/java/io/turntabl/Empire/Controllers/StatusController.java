@@ -38,8 +38,8 @@ public class StatusController {
     @CrossOrigin()
     @ApiOperation("Get Status By Project Id")
     @GetMapping("/api/v1/status/{project_id}")
-    public StatusTO getStatusByProjectId(@PathVariable("project_id") Integer project_id) {
-        return (StatusTO) this.template.query("select endpoint_url, turntabl_project.project_name, endpoints.request_method, status, status.project_id, status.endpoint_id, status_date from status inner join endpoints on status.endpoint_id = endpoints.endpoint_id inner join turntabl_project on status.project_id = turntabl_project.project_id group by status.project_id",
+    public List<StatusTO> getStatusByProjectId(@PathVariable("project_id") Integer project_id) {
+        return this.template.query("select project_name, status, endpoint_url, request_method from turntabl_project inner join endpoints on turntabl_project.project_id = endpoints.project_id inner join status on status.project_id = endpoints.project_id where turntabl_project.project_id = ?",
         new Object[]{project_id},
         new BeanPropertyRowMapper<>(StatusTO.class));
 
@@ -51,5 +51,13 @@ public class StatusController {
     public List<StatusTO> getStatusByDate() {
         return template.query("select status, endpoint_id, status_date from status where status_date = current_date",
         new BeanPropertyRowMapper<>(StatusTO.class));
+    }
+
+    @CrossOrigin(origins = "*")
+    @ApiOperation("Remove Status By System Date")
+    @DeleteMapping("api/v2/status")
+    public void deleteStatusBySystemDate() {
+        this.template.update("delete from status where status_date = current_date - interval '1 day' ");
+
     }
 }

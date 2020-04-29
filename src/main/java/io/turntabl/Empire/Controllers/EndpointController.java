@@ -48,4 +48,5 @@ public class EndpointController {
                 new BeanPropertyRowMapper<>(EndpointTO.class)
         );
     }
+
 }

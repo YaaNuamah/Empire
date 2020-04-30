@@ -35,7 +35,7 @@ public class StatusController {
                  new BeanPropertyRowMapper<StatusTO>(StatusTO.class));
     }
 
-    @CrossOrigin()
+    @CrossOrigin(origins = "*")
     @ApiOperation("Get Status By Project Id")
     @GetMapping("/api/v1/status/{project_id}")
     public List<StatusTO> getStatusByProjectId(@PathVariable("project_id") Integer project_id) {

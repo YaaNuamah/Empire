@@ -49,7 +49,7 @@ public class StatusController {
     @ApiOperation("Get Status By Current Date")
     @GetMapping("api/v2/status/{current_date}")
     public List<StatusTO> getStatusByDate() {
-        return template.query("select status, endpoint_id, status_date from status where status_date = current_date",
+        return template.query("select status, endpoint_id, status_date from status where status_date = current_date order by endpoint_id desc limit 10",
         new BeanPropertyRowMapper<>(StatusTO.class));
     }
 

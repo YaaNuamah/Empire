@@ -31,7 +31,7 @@ public class StatusController {
     @ApiOperation("Get All Status")
     @GetMapping("api/v1/status")
     public List<StatusTO> viewAllStatus() {
-        return this.template.query("select endpoint_url, turntabl_project.project_name, endpoints.request_method, status, status.project_id, status.endpoint_id, status_date from status inner join endpoints on status.endpoint_id = endpoints.endpoint_id inner join turntabl_project on status.project_id = turntabl_project.project_id order by time asc",
+        return this.template.query("select endpoint_url, turntabl_project.project_name, endpoints.request_method, status, status.project_id, status.endpoint_id, time, status_date from status inner join endpoints on status.endpoint_id = endpoints.endpoint_id inner join turntabl_project on status.project_id = turntabl_project.project_id order by time asc",
                  new BeanPropertyRowMapper<StatusTO>(StatusTO.class));
     }
 
@@ -39,7 +39,7 @@ public class StatusController {
     @ApiOperation("Get Status By Project Id")
     @GetMapping("/api/v1/status/{project_id}")
     public List<StatusTO> getStatusByProjectId(@PathVariable("project_id") Integer project_id) {
-        return this.template.query("select project_name, status, endpoint_url, time, request_method from turntabl_project inner join endpoints on turntabl_project.project_id = endpoints.project_id inner join status on status.project_id = endpoints.project_id where turntabl_project.project_id = ? order by time asc",
+        return this.template.query("select project_name, status, endpoint_url, time, request_method from turntabl_project inner join endpoints on turntabl_project.project_id = endpoints.project_id inner join status on status.project_id = endpoints.project_id where turntabl_project.project_id = ? order by time asc limit 20",
         new Object[]{project_id},
         new BeanPropertyRowMapper<>(StatusTO.class));
 

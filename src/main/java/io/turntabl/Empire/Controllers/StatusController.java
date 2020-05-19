@@ -56,15 +56,15 @@ public class StatusController {
     @ApiOperation("Get Status By Current Date")
     @GetMapping("api/v2/status/{current_date}")
     public List<StatusTO> getStatusByCurrentDate() {
-        return template.query("select project_name, time, endpoint_url, request_method, status, endpoint_id, status_date from status where status_date = current_date order by endpoint_id desc limit 5",
+        return template.query("select project_id, status, endpoint_id status_date from status where status_date = current_date order by status_date",
         new BeanPropertyRowMapper<>(StatusTO.class));
     }
 
     @CrossOrigin(origins = "*")
-    @ApiOperation("Remove Status By System Date")
+    @ApiOperation("Get Status By Current Date")
     @GetMapping("api/v2/status/{previous_date}")
     public List<StatusTO> getStatusByPreviousDate() {
-        return template.query("select project_name, time, endpoint_url, request_method, status, endpoint_id, status_date = current_date - interval '1 day' ",
+        return template.query("select project_id, status, endpoint_id, status_date from status where status_date = current_date - interval '1 day' order by status_date",
         new BeanPropertyRowMapper<>(StatusTO.class));
     }
 

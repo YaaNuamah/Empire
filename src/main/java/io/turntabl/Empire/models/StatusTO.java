@@ -1,6 +1,8 @@
 package io.turntabl.Empire.models;
 
+
 import java.sql.Timestamp;
+import java.util.Date;
 
 
 public class StatusTO {
@@ -11,10 +13,9 @@ public class StatusTO {
     private Integer endpoint_id;
     private String request_method;
     private String project_name;
-    private Timestamp time;
+    private String time;
 
-    public StatusTO() {
-    }
+    public StatusTO() {}
 
     public String getEndpoint_url() {
         return endpoint_url;
@@ -64,15 +65,15 @@ public class StatusTO {
         this.project_name = project_name;
     }
 
-    public Timestamp getTime() {
+    public String getTime() {
         return time;
     }
 
-    public void setTime(Timestamp time) {
+    public void setTime(String time) {
         this.time = time;
     }
 
-    public StatusTO(String endpoint_url, Integer project_id, Integer status, Integer endpoint_id, String request_method, String project_name, Timestamp time) {
+    public StatusTO(String endpoint_url, Integer project_id, Integer status, Integer endpoint_id, String request_method, String project_name, String time) {
         this.endpoint_url = endpoint_url;
         this.project_id = project_id;
         this.status = status;

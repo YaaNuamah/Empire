@@ -8,6 +8,13 @@ import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.web.bind.annotation.*;
 
+import java.sql.Date;
+import java.sql.Timestamp;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 
 @Api
@@ -23,15 +30,15 @@ public class StatusController {
         template.update("insert into status(project_id, status, endpoint_id) values (?,?,?)",
                 status.getProject_id(),
                 status.getStatus(),
-                status.getEndpoint_id()
-                );
+                status.getEndpoint_id());
+
     }
 
     @CrossOrigin(origins = "*")
     @ApiOperation("Get All Status")
     @GetMapping("api/v1/status")
     public List<StatusTO> viewAllStatus() {
-        return this.template.query("select endpoint_url, turntabl_project.project_name, endpoints.request_method, status, status.project_id, status.endpoint_id, time, status_date from status inner join endpoints on status.endpoint_id = endpoints.endpoint_id inner join turntabl_project on status.project_id = turntabl_project.project_id order by time desc",
+        return this.template.query("select endpoint_url, turntabl_project.project_name, endpoints.request_method, status, status.project_id, status.endpoint_id, cast(time as timestamp(0)), status_date from status inner join endpoints on status.endpoint_id = endpoints.endpoint_id inner join turntabl_project on status.project_id = turntabl_project.project_id order by time desc",
                  new BeanPropertyRowMapper<StatusTO>(StatusTO.class));
     }
 
@@ -39,7 +46,7 @@ public class StatusController {
     @ApiOperation("Get Status By Project Id")
     @GetMapping("/api/v1/status/{project_id}")
     public List<StatusTO> getStatusByProjectId(@PathVariable("project_id") Integer project_id) {
-        return this.template.query("select project_name, status, endpoint_url, time, request_method from turntabl_project inner join endpoints on turntabl_project.project_id = endpoints.project_id inner join status on status.project_id = endpoints.project_id where turntabl_project.project_id = ? order by time desc limit 20",
+        return this.template.query("select project_name, status, endpoint_url, cast(time as timestamp(0)), request_method from turntabl_project inner join endpoints on turntabl_project.project_id = endpoints.project_id inner join status on status.project_id = endpoints.project_id where turntabl_project.project_id = ? order by time desc limit 20",
         new Object[]{project_id},
         new BeanPropertyRowMapper<>(StatusTO.class));
 
@@ -48,8 +55,16 @@ public class StatusController {
     @CrossOrigin(origins = "*")
     @ApiOperation("Get Status By Current Date")
     @GetMapping("api/v2/status/{current_date}")
-    public List<StatusTO> getStatusByDate() {
-        return template.query("select status, endpoint_id, status_date from status where status_date = current_date order by endpoint_id desc limit 5",
+    public List<StatusTO> getStatusByCurrentDate() {
+        return template.query("select project_name, time, endpoint_url, request_method, status, endpoint_id, status_date from status where status_date = current_date order by endpoint_id desc limit 5",
+        new BeanPropertyRowMapper<>(StatusTO.class));
+    }
+
+    @CrossOrigin(origins = "*")
+    @ApiOperation("Remove Status By System Date")
+    @GetMapping("api/v2/status/{previous_date}")
+    public List<StatusTO> getStatusByPreviousDate() {
+        return template.query("select project_name, time, endpoint_url, request_method, status, endpoint_id, status_date = current_date - interval '1 day' ",
         new BeanPropertyRowMapper<>(StatusTO.class));
     }
 

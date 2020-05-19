@@ -56,7 +56,7 @@ public class StatusController {
     @ApiOperation("Get Status By Current Date")
     @GetMapping("api/v2/status/{current_date}")
     public List<StatusTO> getStatusByCurrentDate() {
-        return template.query("select project_id, status, endpoint_id status_date from status where status_date = current_date order by status_date",
+        return template.query(" select endpoint_url, turntabl_project.project_name, endpoints.request_method, status, status.project_id, status.endpoint_id, cast(time as timestamp(0)), status_date from status inner join endpoints on status.endpoint_id = endpoints.endpoint_id inner join turntabl_project on status.project_id = turntabl_project.project_id where status_date = current_date order by time desc",
         new BeanPropertyRowMapper<>(StatusTO.class));
     }
 
@@ -64,7 +64,7 @@ public class StatusController {
     @ApiOperation("Get Status By Previous Date")
     @GetMapping("api/v2/status/{previous_date}")
     public List<StatusTO> getStatusByPreviousDate() {
-        return template.query("select project_id, status, endpoint_id, status_date from status where status_date = current_date - interval '1 day' order by status_date",
+        return template.query("select endpoint_url, turntabl_project.project_name, endpoints.request_method, status, status.project_id, status.endpoint_id, cast(time as timestamp(0)), status_date from status inner join endpoints on status.endpoint_id = endpoints.endpoint_id inner join turntabl_project on status.project_id = turntabl_project.project_id where status_date = current_date - interval '1 day' order by time desc",
         new BeanPropertyRowMapper<>(StatusTO.class));
     }
 

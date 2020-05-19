@@ -8,13 +8,6 @@ import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.web.bind.annotation.*;
 
-import java.sql.Date;
-import java.sql.Timestamp;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.time.temporal.ChronoUnit;
 import java.util.List;
 
 @Api
@@ -72,7 +65,7 @@ public class StatusController {
     @ApiOperation("Remove Status By System Date")
     @DeleteMapping("api/v2/status")
     public void deleteStatusBySystemDate() {
-        this.template.update("delete from status where status_date = current_date - interval '1 day' ");
+        this.template.update("delete from status where status_date = current_date - interval '3 day' ");
 
     }
 }

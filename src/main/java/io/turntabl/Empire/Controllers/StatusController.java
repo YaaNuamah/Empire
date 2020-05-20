@@ -65,7 +65,7 @@ public class StatusController {
     @ApiOperation("Remove Status By System Date")
     @DeleteMapping("api/v2/status")
     public void deleteStatusBySystemDate() {
-        this.template.update("delete from status where status_date = current_date - interval '3 day' ");
+        this.template.update("delete from status where status_date = current_date - interval '2 day' ");
 
     }
 }
